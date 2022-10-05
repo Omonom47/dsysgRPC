@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	t "time"
 
@@ -52,4 +53,11 @@ func SendGetTimeRequest(c p.GetCurrentTimeClient) {
 	}
 
 	fmt.Printf("Current time right now: %s\n", response.Reply)
+	file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.SetOutput(file)
+
+	log.Println(response.Reply)
 }
