@@ -13,9 +13,19 @@ import (
 )
 
 func main() {
+
+	go TimeServiceClient()
+	go TimeServiceClient()
+
+	for {
+
+	}
+}
+
+func TimeServiceClient(ip string) {
 	// Creat a virtual RPC Client Connection on port  9080 WithInsecure (because  of http)
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":9080", grpc.WithInsecure())
+	conn, err := grpc.Dial(ip+":9080", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Could not connect: %s", err)
 	}
